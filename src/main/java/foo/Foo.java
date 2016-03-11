@@ -2,29 +2,20 @@ package foo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.MoreObjects;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Objects;
 
 import java.util.UUID;
 
-/**
- * Test
- */
-public class Foo extends AbstractFoo implements BarInterface {
+public class Foo {
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     private final UUID fooId;
 
     @JsonCreator
     public Foo(@JsonProperty(value = "fooid", required = true) UUID fooId) {
         this.fooId = fooId;
-    }
-
-    public String getBaz() {
-        return "Foo!";
-    }
-
-    public UUID getFooId() {
-        return fooId;
     }
 
     @Override
@@ -40,11 +31,5 @@ public class Foo extends AbstractFoo implements BarInterface {
         return Objects.hashCode(fooId);
     }
 
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("fooId", fooId)
-                .toString();
-    }
 }
 
